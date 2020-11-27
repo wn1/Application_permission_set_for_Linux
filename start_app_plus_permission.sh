@@ -148,7 +148,6 @@ changeConfirm=0
 #TODO read from backup
 #TODO 
 groupIsExists=$(grep -F -w $permission /etc/group)
-fileGroupBackup=./permission_groups_backup/$groupIsExists
 
 if [[ -z $groupIsExists ]] 
 then
@@ -157,18 +156,25 @@ then
 fi
 
 
-
-
 #Backup permission group
+fileGroupBackup=./permission_groups_backup/$groupIsExists
 groupIsExists=$(grep -F -w $permission /etc/group)
 
 echo 'Backup permission group check'
 
-if [[ -n $groupIsExists && ! -e fileGroupBackup ]] 
-then
+fileGroupBackupDir=./permission_groups_backup/
+
+if ! [[ -e $fileGroupBackupDir ]]; then 
+    echo "Make directory permission_groups_backup"
+    sudo mkdir $fileGroupBackupDir
+    sudo chown root:$internalChangePermission $fileGroupBackupDir
+    sudo chmod 770 $fileGroupBackupDir
+fi
+
+if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
    echo Backup permission group: $permission 
 #TODO replace
-   echo $groupIsExists > ./permission_groups_backup/$permission    
+   sudo -g $internalChangePermission echo $groupIsExists > ./permission_groups_backup/$permission    
 fi
 
 #Temporary exit point
@@ -176,7 +182,7 @@ read -p 'Press enter' $enter
 exit 0
 
 #Check application directory for permissions
-if [ $needChange -eq 0]; then
+if [[ $needChange -eq 0 ]]; then
     for path in ${appDirList[@]}
     do
         uname=$(ls -l $path | awk '{print $3}');
@@ -189,7 +195,7 @@ if [ $needChange -eq 0]; then
     done
 fi
 
-if [ $needChange -eq 1]; then
+if [[ $needChange -eq 1 ]]; then
     read -p 'In this application will be used changes for app dirrectory:
 owner change for root:$permission
 mod change to drwxrwx---
