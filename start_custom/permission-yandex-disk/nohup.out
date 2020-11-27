@@ -1,0 +1,142 @@
+2020-11-23 22:17:13,167 ERROR    Message engine failure
+
+(yandex-disk-indicator:20591): Gdk-CRITICAL **: 22:17:13.323: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:17:41,672 ERROR    Message engine failure
+
+(yandex-disk-indicator:20683): Gdk-CRITICAL **: 22:17:41.827: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:22:44,540 ERROR    Message engine failure
+
+(yandex-disk-indicator:20951): Gdk-CRITICAL **: 22:22:44.692: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+sh: 0: Can't open shudo
+Демон уже запущен.
+2020-11-23 22:25:46,345 ERROR    Message engine failure
+
+(yandex-disk-indicator:21650): Gdk-CRITICAL **: 22:25:46.494: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Демон уже запущен.
+2020-11-23 22:28:02,907 ERROR    Message engine failure
+
+(yandex-disk-indicator:21889): Gdk-CRITICAL **: 22:28:03.127: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Демон уже запущен.
+2020-11-23 22:28:31,931 ERROR    Message engine failure
+
+(yandex-disk-indicator:22022): Gdk-CRITICAL **: 22:28:32.098: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+sudo: unable to read password: Ошибка ввода/вывода
+sudo: unable to read password: Ошибка ввода/вывода
+2020-11-23 22:38:48,387 ERROR    Message engine failure
+
+(yandex-disk-indicator:23032): Gdk-CRITICAL **: 22:38:48.554: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:39:45,033 ERROR    Message engine failure
+
+(yandex-disk-indicator:23220): Gdk-CRITICAL **: 22:39:45.196: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:41:28,939 ERROR    Message engine failure
+
+(yandex-disk-indicator:23483): Gdk-CRITICAL **: 22:41:29.104: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Gdk-Message: 00:06:04.261: yandex-disk-indicator: Fatal IO error 11 (Ресурс временно недоступен) on X server :0.
+
+2020-11-24 22:34:11,949 ERROR    Message engine failure
+
+(yandex-disk-indicator:7435): Gdk-CRITICAL **: 22:34:12.101: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:38:13,716 ERROR    Message engine failure
+
+(yandex-disk-indicator:7885): Gdk-CRITICAL **: 22:38:13.863: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:40:44,070 ERROR    Message engine failure
+
+(yandex-disk-indicator:8145): Gdk-CRITICAL **: 22:40:44.212: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:42:20,148 ERROR    Message engine failure
+
+(yandex-disk-indicator:8291): Gdk-CRITICAL **: 22:42:20.296: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:44:28,200 ERROR    Message engine failure
+
+(yandex-disk-indicator:8746): Gdk-CRITICAL **: 22:44:28.352: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:44:36,569 ERROR    Message engine failure
+
+(yandex-disk-indicator:8788): Gdk-CRITICAL **: 22:44:36.725: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:47:10,311 ERROR    Message engine failure
+
+(yandex-disk-indicator:9026): Gdk-CRITICAL **: 22:47:10.482: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-24 22:58:00,130 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+Другой экземпляр индикатора уже запущен.
+Другой экземпляр индикатора уже запущен.
+2020-11-24 23:00:03,655 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+/usr/bin/yandex-disk-indicator:1025: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cb.append(Gtk.CheckButton(msg))
+/usr/bin/yandex-disk-indicator:1030: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  pref_notebook.append_page(preferencesBox, Gtk.Label(_('Indicator settings')))
+/usr/bin/yandex-disk-indicator:1036: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbStOnStart = Gtk.CheckButton(_('Start Yandex.Disk daemon %swhen indicator is starting')
+/usr/bin/yandex-disk-indicator:1043: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbStoOnExit = Gtk.CheckButton(_('Stop Yandex.Disk daemon %son closing of indicator') % i.ID)
+/usr/bin/yandex-disk-indicator:1054: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbRO = Gtk.CheckButton(_('Read-Only: Do not upload locally changed files to Yandex.Disk'))
+/usr/bin/yandex-disk-indicator:1059: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  overwrite = Gtk.CheckButton(_('Overwrite locally changed files by files' +
+/usr/bin/yandex-disk-indicator:1070: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  exListButton = Gtk.Button(_('Excluded folders List'))
+/usr/bin/yandex-disk-indicator:1075: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  pref_notebook.append_page(optionsBox, Gtk.Label(_('Daemon %soptions') % i.ID))
+2020-11-24 23:00:50,306 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+Другой экземпляр индикатора уже запущен.
+2020-11-24 23:02:27,661 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+2020-11-24 23:03:18,522 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+2020-11-24 23:03:32,158 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+/usr/bin/yandex-disk-indicator:1025: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cb.append(Gtk.CheckButton(msg))
+/usr/bin/yandex-disk-indicator:1030: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  pref_notebook.append_page(preferencesBox, Gtk.Label(_('Indicator settings')))
+/usr/bin/yandex-disk-indicator:1036: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbStOnStart = Gtk.CheckButton(_('Start Yandex.Disk daemon %swhen indicator is starting')
+/usr/bin/yandex-disk-indicator:1043: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbStoOnExit = Gtk.CheckButton(_('Stop Yandex.Disk daemon %son closing of indicator') % i.ID)
+/usr/bin/yandex-disk-indicator:1054: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  cbRO = Gtk.CheckButton(_('Read-Only: Do not upload locally changed files to Yandex.Disk'))
+/usr/bin/yandex-disk-indicator:1059: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  overwrite = Gtk.CheckButton(_('Overwrite locally changed files by files' +
+/usr/bin/yandex-disk-indicator:1070: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  exListButton = Gtk.Button(_('Excluded folders List'))
+/usr/bin/yandex-disk-indicator:1075: PyGTKDeprecationWarning: Using positional arguments with the GObject constructor has been deprecated. Please specify keyword(s) for "label" or use a class specific constructor. See: https://wiki.gnome.org/PyGObject/InitializerDeprecations
+  pref_notebook.append_page(optionsBox, Gtk.Label(_('Daemon %soptions') % i.ID))
+2020-11-24 23:05:16,053 ERROR    Daemon start failed:Ошибка: нет прав доступа к папке: /media/mount/Files.2/user_files/v.kudashov/yandex-disk
+
+2020-11-24 23:07:20,954 ERROR    Message engine failure
+
+(yandex-disk-indicator:10359): Gdk-CRITICAL **: 23:07:21.107: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-25 14:01:14,976 ERROR    Message engine failure
+
+(yandex-disk-indicator:17625): Gdk-CRITICAL **: 14:01:15.106: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+Nemo-Share-Message: 14:01:22.328: Called "net usershare info" but it failed: Ошибка 255 при запуске 'net usershare': net usershare: cannot open usershare directory /var/lib/samba/usershares. Error Нет такого файла или каталога
+Please ask your system administrator to enable user sharing.
+
+Terminated
+
+(nemo:17863): GLib-GIO-CRITICAL **: 14:01:24.421: g_dbus_interface_skeleton_export: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+
+(nemo:17863): dconf-WARNING **: 14:01:25.212: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+
+(nemo:17863): dconf-WARNING **: 14:01:25.628: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+Couldn't get disk full info for: Произошла ошибка при получении сведений о файловой системе /media/game_time/games_dev: Отказано в доступе
+Nemo-Share-Message: 14:01:25.964: Called "net usershare info" but it failed: Ошибка 255 при запуске 'net usershare': net usershare: cannot open usershare directory /var/lib/samba/usershares. Error Нет такого файла или каталога
+Please ask your system administrator to enable user sharing.
+
+
+(nemo:17863): dconf-WARNING **: 14:01:27.012: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+
+(nemo:17863): dconf-WARNING **: 14:01:27.012: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+
+(nemo:17863): dconf-WARNING **: 14:01:29.855: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+
+(nemo:17863): dconf-WARNING **: 14:01:29.856: failed to commit changes to dconf: Не удалось подключиться к: В соединении отказано
+
+(nemo:17863): GLib-GIO-CRITICAL **: 14:01:59.868: g_dbus_interface_skeleton_unexport: assertion 'interface_->priv->connections != NULL' failed
+
+(yandex-disk-indicator:17625): libappindicator-WARNING **: 14:01:59.893: Unable to send signal for NewIcon: Соединение закрыто

@@ -1,0 +1,36 @@
+2020-11-23 22:17:13,167 ERROR    Message engine failure
+
+(yandex-disk-indicator:20591): Gdk-CRITICAL **: 22:17:13.323: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:17:41,672 ERROR    Message engine failure
+
+(yandex-disk-indicator:20683): Gdk-CRITICAL **: 22:17:41.827: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:22:44,540 ERROR    Message engine failure
+
+(yandex-disk-indicator:20951): Gdk-CRITICAL **: 22:22:44.692: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+sh: 0: Can't open shudo
+Демон уже запущен.
+2020-11-23 22:25:46,345 ERROR    Message engine failure
+
+(yandex-disk-indicator:21650): Gdk-CRITICAL **: 22:25:46.494: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Демон уже запущен.
+2020-11-23 22:28:02,907 ERROR    Message engine failure
+
+(yandex-disk-indicator:21889): Gdk-CRITICAL **: 22:28:03.127: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Демон уже запущен.
+2020-11-23 22:28:31,931 ERROR    Message engine failure
+
+(yandex-disk-indicator:22022): Gdk-CRITICAL **: 22:28:32.098: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+sudo: unable to read password: Ошибка ввода/вывода
+sudo: unable to read password: Ошибка ввода/вывода
+2020-11-23 22:38:48,387 ERROR    Message engine failure
+
+(yandex-disk-indicator:23032): Gdk-CRITICAL **: 22:38:48.554: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:39:45,033 ERROR    Message engine failure
+
+(yandex-disk-indicator:23220): Gdk-CRITICAL **: 22:39:45.196: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+2020-11-23 22:41:28,939 ERROR    Message engine failure
+
+(yandex-disk-indicator:23483): Gdk-CRITICAL **: 22:41:29.104: gdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed
+Gdk-Message: 00:06:04.261: yandex-disk-indicator: Fatal IO error 11 (Ресурс временно недоступен) on X server :0.
+
+ошибка: "flatpak run" is not intended to be ran with sudo
