@@ -1,22 +1,62 @@
-echo "Check 2"
+echo "Check app dir for permissions after changes"
 
-if [[ $needChange -eq 0 ]]; then
-    for path in ${appDirList[@]}
-    do
-        uname=$(ls -l $path | awk '{print $3}');
-        gname=$(ls -l $path | awk '{print $4}');
-        mod=$(ls -l $path | awk '{print $1}');
-        if [ $uname != root -o gname != $permission -o mod != drwxrwx---]; then
-            echo 'Check file error: $path uname: $uname group:$gname mode: $mod, need to change root: $uname group:$permission mode: drwxrwx---'
-        fi
-    done
-fi
+appMod="drwxrwx---"
+appModN="770"
 
-if [[ $needChange -eq 1 ]]; then
-    read -p 'Internal error. Exit.' $confirm
-        exit 111
+while [ -n "$1" ]
+do
+    p2check=${2:0:1}
+
+    if [[ $p2check == "-" ]]; then
+        shift
+        continue
     fi
-fi
 
-echo 'Ok"
+    case "$1" in
+        -app) app=$2
+            shift ;;
+        -permission) permission=$2
+            shift ;;
+        -params) 
+            shift
+            let i=0
+            while [[ ! -z ${1:0:1} && ${1:0:1} != "-" ]]
+            do
+              params[i]=$1
+              let i=$i+1
+              shift
+            done;;
+        -appdirlist) 
+            shift
+            let i=0
+            while [[ ! -z ${1:0:1} && ${1:0:1} != "-" ]]
+            do
+              appDirList[i]=$1
+              let i=$i+1
+              shift
+            done
+    esac
+    shift
+done
+
+echo "app: $app permission: $permission params: ${params[@]} appDirList: ${appDirList[@]}"
+
+for path in ${appDirList[@]}
+do
+    uname=$(ls -l -d $path | awk '{print $3}');
+    gname=$(ls -l -d $path | awk '{print $4}');
+    mod=$(ls -l -d $path | awk '{print $1}');
+    
+    echo "file: $path 
+    owner: $uname:$gname
+    mod: $mod"  
+
+    if [[ $uname != 'root' || $gname != $permission || $mod != $appMod ]]; then
+        echo "Check no ok"
+        exit 111
+        break
+    fi
+done
+
+echo "Ok"
 

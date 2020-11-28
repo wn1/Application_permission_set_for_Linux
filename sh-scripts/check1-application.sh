@@ -1,4 +1,4 @@
-echo "Check 1"
+echo "Check app dir for permissions"
 
 appMod="drwxrwx---"
 appModN="770"
@@ -41,17 +41,17 @@ done
 
 echo "app: $app permission: $permission params: ${params[@]} appDirList: ${appDirList[@]}"
 
-echo "Check app dir for permissions"
-
 for path in ${appDirList[@]}
 do
     uname=$(ls -l -d $path | awk '{print $3}');
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');
     
-    echo "file: $path uname: $uname gname: $gname mod: $mod"  
+    echo "file: $path
+    owner: $uname:$gname
+    mod: $mod"  
 
-    if [[ $uname != root || gname != $permission || mod != $appMod ]]; then
+    if [[ $uname != 'root' || $gname != $permission || $mod != $appMod ]]; then
         needChange=1
         break
     fi
@@ -66,8 +66,10 @@ fi
 
 if [[ $needChange -eq 1 ]]; then
     read -p "In this application will be used changes for app dirrectory:
-owner change for root:$permission
-mod change to $appMod
+owner change for 
+    root:$permission
+mod change to 
+    $appMod
 Tape yes for confirm this changes: " confirm
     if [[ $confirm == 'yes' ]]; then
         changeConfirm=1
@@ -103,4 +105,16 @@ do
 done
 
 echo "Ok"
+
+#Check 2
+
+if [[ $needChange -eq 1 ]]; then
+    ./sh-scripts/check2-application.sh -app $app -permission $permission -params ${params[@]} -appdirlist ${appDirList[@]}
+    scriptExitCode=$?
+    if [[ $scriptExitCode != 0 ]] 
+    then
+       exit $scriptExitCode     
+    fi
+fi
+
 

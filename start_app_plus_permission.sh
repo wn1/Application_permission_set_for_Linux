@@ -24,6 +24,7 @@ read -p '0. Start input app params
 7. +Ntfs-disks: Nemo
 8. Qt
 9. Dolphin +root
+10. +permission-develop: Nemo
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For deleting permissions on your directory use prefix - (-1, -2 etc)
@@ -45,7 +46,7 @@ elif [[ $select = '2' ]]; then
 #   appDirList=
 
 elif [[ $select = '3' ]]; then
-   app=git-select.sh
+   app=./sh-scripts/git-select.sh
    permission=permission-git-write
    permissionGid=7703
 #   params=
@@ -62,6 +63,13 @@ elif [[ $select = '7' ]]; then
    app=nemo
    permission=permission-ntfs
    permissionGid=7707
+#   params=
+#   appDirList=
+
+elif [[ $select = '10' ]]; then
+   app=nemo
+   permission=permission-develop
+   permissionGid=7700
 #   params=
 #   appDirList=
 
@@ -121,7 +129,9 @@ do
     gname=$(ls -l $path | awk '{print $4}');
     mod=$(ls -l $path | awk '{print $1}');
     
-    echo "file: $path uname: $uname gname: $gname mod: $mod"    
+    echo "file: $path
+    owner: $uname:$gname
+    mod: $mod"    
 
     if [[ $uname != 'root' || $gname != $internalChangePermission || $mod != $internalScriptMod ]]; then
         needChange=1
@@ -136,8 +146,10 @@ fi
 
 if [[ $needChange -eq 1 ]]; then
     read -p "In this application will be used changes for this script:
-owner change to root:$internalChangePermission
-mod change to $internalScriptMod
+owner change to 
+    root:$internalChangePermission
+mod change to 
+    $internalScriptMod
 Tape yes for confirm this changes: " confirm
     if [[ $confirm != 'yes' ]]; then
         echo "No confirm for changes, exit"
@@ -204,7 +216,7 @@ fi
 if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
    echo Backup permission group: $permission 
 #TODO replace
-   sudo -g $internalChangePermission echo $groupIsExists > ./permission_groups_backup/$permission    
+   echo $groupIsExists > ./permission_groups_backup/$permission    
 fi
 
 #Check result is ok?
@@ -220,17 +232,5 @@ then
    exit $scriptExitCode     
 fi
 
-./sh-scripts/check2-application.sh -app $app -p $permission -params "${params[@]}" -appdirs "${appDirList[@]}"
-scriptExitCode=$?
-if [[ $scriptExitCode != 0 ]] 
-then
-   exit $scriptExitCode     
-fi
-
-#Temporary exit point
-read -p 'Press enter' $enter
-exit 0
-
-echo 'Start sudo -g $permission $app $params'
-read -p 'Press enter' $enter
+echo "Start sudo -g $permission $app $params"
 sudo -g $permission $app $params
