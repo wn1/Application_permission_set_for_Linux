@@ -9,6 +9,7 @@
 
 #Permission group for change this script
 internalChangePermission=permission-develop
+internalChangePermissionGid=7700
 #internalChangePermission=root
 internalScriptMod="-rwxrwxr-x"
 internalScriptModN="775"
@@ -32,26 +33,37 @@ Select: ' select
 if [[ $select = 't' ]]; then
    app=test
    permission=permission-develop
+   permissionGid=7700
 #   params=
    appDirList=(./test1 ./test2)
 
 elif [[ $select = '2' ]]; then
    app=nemo
    permission=permission-file-archive
+   permissionGid=7702
 #   params=
 #   appDirList=
 
 elif [[ $select = '3' ]]; then
-   app = git-select.sh
+   app=git-select.sh
    permission=permission-git-write
+   permissionGid=7703
 #   params=
 #   appDirList= 
 
 elif [[ $select = '1' ]]; then
    app=firefox
    permission=permission-firefox
+   permissionGid=7701
 #   params=
    appDirList=(~/.mozila ~/.cache/mozilla)
+
+elif [[ $select = '7' ]]; then
+   app=nemo
+   permission=permission-ntfs
+   permissionGid=7707
+#   params=
+#   appDirList=
 
 fi
 
@@ -88,7 +100,7 @@ fileGroupBackup=./permission_groups_backup/$groupIsExists
 
 if [[ -z $groupIsExists ]]; then
    echo Adding permission group: $internalChangePermission  
-   sudo addgroup $internalChangePermission     
+   sudo addgroup --gid $internalChangePermissionGid $internalChangePermission     
 fi
 
 #Check result is ok?
@@ -169,7 +181,7 @@ groupIsExists=$(grep -F -w $permission /etc/group)
 if [[ -z $groupIsExists ]] 
 then
    echo Adding permission group: $permission   
-   sudo addgroup $permission     
+   sudo addgroup --gid $permissionGid $permission     
 fi
 
 
