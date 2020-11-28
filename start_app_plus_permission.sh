@@ -190,8 +190,14 @@ fi
 
 if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
    echo Backup permission group: $permission 
+   echo $internalChangePermission
 #TODO replace
    sudo -g $internalChangePermission echo $groupIsExists > ./permission_groups_backup/$permission    
+fi
+
+#Check result is ok?
+if [[ $? != 0 ]]; then 
+    exit $?
 fi
 
 #Check application directory for permissions

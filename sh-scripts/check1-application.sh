@@ -30,7 +30,6 @@ do
         do
           appDirList[i]=$1
           let i=$i+1
-          echo $i
           shift
         done
     esac
@@ -39,9 +38,11 @@ done
 
 
 #Check result is ok?
-if [[ $? != 0 ]]; then 
-    echo "Check no ok, code: $?"
-    exit $?
+code=$?
+
+if [[ code != 0 ]]; then 
+    echo "Check no ok, code: $code"
+    exit $code
 fi
 
 echo "app: $app permission: $permission params: ${params[@]} appDirList: ${appDirList[@]}"
