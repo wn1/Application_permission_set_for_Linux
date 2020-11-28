@@ -79,7 +79,7 @@ done
 
 needChange=0
 
-internalCheckDirList=(./start_app_plus_permission.sh ./sh-scripts/git-select.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
@@ -91,14 +91,19 @@ if [[ -z $groupIsExists ]]; then
    sudo addgroup $internalChangePermission     
 fi
 
+#Check result is ok?
+if [[ $? != 0 ]]; then 
+    exit $?
+fi
+
 #Check this script for permissions
 echo "Check this script for permissions"
 
-for path in ${internalCheckDirList[@]}
+for path in ${internalCheckFileList[@]}
 do
     if ! test -e $path; then
        echo "error: File $path is empty" 
-       exit 0
+       exit 111
     fi
     uname=$(ls -l $path | awk '{print $3}');
     gname=$(ls -l $path | awk '{print $4}');
@@ -112,6 +117,11 @@ do
     fi
 done
 
+#Check result is ok?
+if [[ $? != 0]]; then 
+    exit $?
+fi
+
 if [[ $needChange -eq 1 ]]; then
     read -p "In this application will be used changes for this script:
 owner change to root:$internalChangePermission
@@ -119,22 +129,29 @@ mod change to $internalScriptMod
 Tape yes for confirm this changes: " confirm
     if [[ $confirm != 'yes' ]]; then
         echo "No confirm for changes, exit"
-        exit 0
+        exit 111
     fi
 
-    for path in ${internalCheckDirList[@]}
+    for path in ${internalCheckFileList[@]}
     do
         uname=$(ls -l $path | awk '{print $3}');
         gname=$(ls -l $path | awk '{print $4}');
         mod=$(ls -l $path | awk '{print $1}');
         if [[ $uname != "root" || $gname != "$internalChangePermission" ]]; then
             echo Change $path owner from $uname:$gname to root:$internalChangePermission
-            read -p 'Press enter' $enter
             sudo chown root:$internalChangePermission $path
+            #Check result is ok?
+            if [[ $? != 0 ]]; then 
+                exit $?
+            fi
         fi
         if [[ $mod != $internalScriptMod ]]; then
             echo Change $path mod from $mod to $internalScriptMod
             sudo chmod $internalScriptModN $path
+            #Check result is ok?
+            if [[ $? != 0 ]]; then 
+                exit $?
+            fi
         fi
     done
 
@@ -177,54 +194,25 @@ if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
    sudo -g $internalChangePermission echo $groupIsExists > ./permission_groups_backup/$permission    
 fi
 
+#Check application directory for permissions
+./sh-scripts/check1-application.sh -app $app -permission $permission -params $params -appdirlist $appDirList
+scriptExitCode=echo $? 
+if [[ $scriptExitCode != 0 ]] 
+then
+   exit $scriptExitCode     
+fi
+
+
+./sh-scripts/check2-application.sh -app $app -p $permission -params $params -appdirs $appDirList
+scriptExitCode=echo $?
+if [[ $scriptExitCode != 0 ]] 
+then
+   exit $scriptExitCode     
+fi
+
 #Temporary exit point
 read -p 'Press enter' $enter
 exit 0
-
-#Check application directory for permissions
-if [[ $needChange -eq 0 ]]; then
-    for path in ${appDirList[@]}
-    do
-        uname=$(ls -l $path | awk '{print $3}');
-        gname=$(ls -l $path | awk '{print $4}');
-        mod=$(ls -l $path | awk '{print $1}');
-        if [ $uname != root -o gname != $permission -o mod != drwxrwx---]; then
-            needChange = 1
-            break
-        fi
-    done
-fi
-
-if [[ $needChange -eq 1 ]]; then
-    read -p 'In this application will be used changes for app dirrectory:
-owner change for root:$permission
-mod change to drwxrwx---
-Tape yes for confirm this changes: ' $confirm
-    if [[ $confirm -eq yes ]]; then
-        changeConfirm = 1
-    else
-        exit 0
-    fi
-fi
-
-for path in ${appDirList[@]}
-do
-    uname=$(ls -l $path | awk '{print $3}');
-    gname=$(ls -l $path | awk '{print $4}');
-    mod=$(ls -l $path | awk '{print $1}');
-    echo Check $path owner
-    if [ $uname != root -o gname != permission]; then
-        echo Change $path owner from $uname:$gname to root:$permission
-        read -p 'Press enter' $enter
-        sudo chown root:$permission $path
-    fi
-    echo Check $path mod
-    if [$mod != drwxrwx---]; then
-        echo Change $path mod from $mod to drwxrwx---
-        read -p 'Press enter' $enter
-        sudo chmod 770 $path
-    fi
-done
 
 echo 'Start sudo -g $permission $app $params'
 read -p 'Press enter' $enter
