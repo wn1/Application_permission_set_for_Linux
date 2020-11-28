@@ -183,14 +183,14 @@ fileGroupBackupDir=./permission_groups_backup/
 
 if ! [[ -e $fileGroupBackupDir ]]; then 
     echo "Make directory permission_groups_backup"
-    sudo mkdir $fileGroupBackupDir
-    sudo chown root:$internalChangePermission $fileGroupBackupDir
+    mkdir $fileGroupBackupDir
+# TODO backup from backup user
+#    sudo chown root:$internalChangePermission $fileGroupBackupDir
     sudo chmod 770 $fileGroupBackupDir
 fi
 
 if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
    echo Backup permission group: $permission 
-   echo $internalChangePermission
 #TODO replace
    sudo -g $internalChangePermission echo $groupIsExists > ./permission_groups_backup/$permission    
 fi
