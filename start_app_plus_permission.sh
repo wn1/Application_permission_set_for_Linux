@@ -10,8 +10,8 @@
 #Permission group for change this script
 internalChangePermission=permission-develop
 #internalChangePermission=root
-internalScriptMod="-rwxrwx---"
-internalScriptModN="770"
+internalScriptMod="-rwxrwxr-x"
+internalScriptModN="775"
 
 read -p '0. Start input app params
 1. Firefox
@@ -118,7 +118,7 @@ do
 done
 
 #Check result is ok?
-if [[ $? != 0]]; then 
+if [[ $? != 0 ]]; then 
     exit $?
 fi
 
@@ -129,7 +129,7 @@ mod change to $internalScriptMod
 Tape yes for confirm this changes: " confirm
     if [[ $confirm != 'yes' ]]; then
         echo "No confirm for changes, exit"
-        exit 111
+        exit 100
     fi
 
     for path in ${internalCheckFileList[@]}
@@ -195,16 +195,15 @@ if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
 fi
 
 #Check application directory for permissions
-./sh-scripts/check1-application.sh -app $app -permission $permission -params $params -appdirlist $appDirList
-scriptExitCode=echo $? 
+./sh-scripts/check1-application.sh -app $app -permission $permission -params ${params[@]} -appdirlist ${appDirList[@]}
+scriptExitCode=$? 
 if [[ $scriptExitCode != 0 ]] 
 then
    exit $scriptExitCode     
 fi
 
-
-./sh-scripts/check2-application.sh -app $app -p $permission -params $params -appdirs $appDirList
-scriptExitCode=echo $?
+./sh-scripts/check2-application.sh -app $app -p $permission -params "${params[@]}" -appdirs "${appDirList[@]}"
+scriptExitCode=$?
 if [[ $scriptExitCode != 0 ]] 
 then
    exit $scriptExitCode     
