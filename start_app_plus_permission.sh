@@ -13,6 +13,7 @@ internalChangePermissionGid=7700
 #internalChangePermission=root
 internalScriptMod="-rwxrwxr-x"
 internalScriptModN="775"
+desktopDirectory=~/Рабочий\ стол/
 
 read -p '0. Start input app params
 1. Firefox
@@ -25,10 +26,14 @@ read -p '0. Start input app params
 8. Qt
 9. Dolphin +root
 10. +permission-develop: Nemo
+11. +permission-android-develop: Nemo
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For deleting permissions on your directory use prefix - (-1, -2 etc)
 For find permissions on your directory use prefix ? (?1, ?2 etc)
+For run nemo with selected permissions use prefix n ? (n1, n2 etc)
+For run dolphin with selected permissions use prefix d ? (d1, d2 etc)
+For run terminal with selected permissions use prefix t ? (n1, n2 etc)
 Select: ' select
 
 if [[ $select = 't' ]]; then
@@ -57,7 +62,7 @@ elif [[ $select = '1' ]]; then
    permission=permission-firefox
    permissionGid=7701
 #   params=
-   appDirList=(~/.mozila ~/.cache/mozilla)
+   appDirList=(~/.mozilla ~/.cache/mozilla)
 
 elif [[ $select = '7' ]]; then
    app=nemo
@@ -71,6 +76,14 @@ elif [[ $select = '10' ]]; then
    permission=permission-develop
    permissionGid=7700
 #   params=
+#   appDirList=
+
+elif [[ $select = '11' ]]; then
+   app=nemo
+   permission=permission-android-develop
+   permissionGid=7711
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
 #   appDirList=
 
 fi
@@ -232,5 +245,10 @@ then
    exit $scriptExitCode     
 fi
 
-echo "Start sudo -g $permission $app $params"
-sudo -g $permission $app $params
+#if [[ -n $cdDir ]] 
+#then
+#   cd $cdDir     
+#fi
+
+echo "Start sudo -g $permission $app ${params[@]}"
+sudo -g $permission $app ${params[@]}
