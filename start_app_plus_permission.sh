@@ -12,8 +12,10 @@ internalChangePermission=permission-develop
 internalChangePermissionGid=7700
 #internalChangePermission=root
 internalScriptMod="-rwxrwxr-x"
+internalScriptModDir="drwxrwxr-x"
 internalScriptModN="775"
 desktopDirectory=~/Рабочий\ стол/
+linksDirectory=./links
 
 read -p '0. Start input app params
 1. Firefox
@@ -26,14 +28,14 @@ read -p '0. Start input app params
 8. Qt
 9. Dolphin +root
 10. +permission-develop: Nemo
-11. +permission-android-develop: Nemo
+11. +permission-android-develop: Android Studio
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For deleting permissions on your directory use prefix - (-1, -2 etc)
 For find permissions on your directory use prefix ? (?1, ?2 etc)
 For run nemo with selected permissions use prefix n ? (n1, n2 etc)
 For run dolphin with selected permissions use prefix d ? (d1, d2 etc)
-For run terminal with selected permissions use prefix t ? (n1, n2 etc)
+For run terminal with selected permissions use prefix t ? (t1, t2 etc)
 Select: ' select
 
 if [[ $select = 't' ]]; then
@@ -43,7 +45,13 @@ if [[ $select = 't' ]]; then
 #   params=
    appDirList=(./test1 ./test2)
 
-elif [[ $select = '2' ]]; then
+elif [[ ${select:0:1} = 't' ]]; then
+   useApp=gnome-terminal
+   select=${select:1}
+   echo "Select: terminal"
+fi
+
+if [[ $select = '2' ]]; then
    app=nemo
    permission=permission-file-archive
    permissionGid=7702
@@ -79,13 +87,17 @@ elif [[ $select = '10' ]]; then
 #   appDirList=
 
 elif [[ $select = '11' ]]; then
-   app=nemo
+   app=$linksDirectory/android-studio.sh
    permission=permission-android-develop
    permissionGid=7711
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
 #   appDirList=
 
+fi
+
+if [[ -n $useApp ]]; then
+    app=$useApp
 fi
 
 #TODO select qreatest 3
@@ -112,7 +124,7 @@ done
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
@@ -138,15 +150,15 @@ do
        echo "error: File $path is empty" 
        exit 111
     fi
-    uname=$(ls -l $path | awk '{print $3}');
-    gname=$(ls -l $path | awk '{print $4}');
-    mod=$(ls -l $path | awk '{print $1}');
+    uname=$(ls -l -d $path | awk '{print $3}');
+    gname=$(ls -l -d $path | awk '{print $4}');
+    mod=$(ls -l -d $path | awk '{print $1}');
     
     echo "file: $path
     owner: $uname:$gname
-    mod: $mod"    
+    mod: $mod"   
 
-    if [[ $uname != 'root' || $gname != $internalChangePermission || $mod != $internalScriptMod ]]; then
+    if [[ $uname != 'root' || $gname != $internalChangePermission || ($mod != $internalScriptMod && $mod != $internalScriptModDir) ]]; then
         needChange=1
         break
     fi
@@ -171,9 +183,9 @@ Tape yes for confirm this changes: " confirm
 
     for path in ${internalCheckFileList[@]}
     do
-        uname=$(ls -l $path | awk '{print $3}');
-        gname=$(ls -l $path | awk '{print $4}');
-        mod=$(ls -l $path | awk '{print $1}');
+        uname=$(ls -l -d $path | awk '{print $3}');
+        gname=$(ls -l -d $path | awk '{print $4}');
+        mod=$(ls -l -d $path | awk '{print $1}');
         if [[ $uname != "root" || $gname != "$internalChangePermission" ]]; then
             echo Change $path owner from $uname:$gname to root:$internalChangePermission
             sudo chown root:$internalChangePermission $path
@@ -182,8 +194,8 @@ Tape yes for confirm this changes: " confirm
                 exit $?
             fi
         fi
-        if [[ $mod != $internalScriptMod ]]; then
-            echo Change $path mod from $mod to $internalScriptMod
+        if [[ $mod != $internalScriptMod && $mod != $internalScriptModDir ]]; then
+            echo Change $path mod from $mod to *${internalScriptMod:1:9}
             sudo chmod $internalScriptModN $path
             #Check result is ok?
             if [[ $? != 0 ]]; then 
@@ -235,6 +247,18 @@ fi
 #Check result is ok?
 if [[ $? != 0 ]]; then 
     exit $?
+fi
+
+
+#Link directory adding
+
+
+if ! [[ -e $linksDirectory ]]; then 
+    echo "Make directory $linksDirectory"
+    mkdir $linksDirectory
+# TODO backup from backup user
+#    sudo chown root:$internalChangePermission $fileGroupBackupDir
+    sudo chmod 770 $linksDirectory
 fi
 
 #Check application directory for permissions
