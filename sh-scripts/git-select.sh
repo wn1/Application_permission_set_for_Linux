@@ -34,6 +34,9 @@ do
     shift
 done
 
+shdir=$(dirname "$app")
+echo "shdir: $shdir"
+
 read -p '0. Start gitk
 1. Terminal
 2. Smart-git
@@ -73,7 +76,7 @@ elif [[ $select = '4' ]]; then
 #   appDirList=
 
 elif [[ $select = '5' ]]; then
-   app=./ssh-agent-add-key.sh
+   app="$shdir/ssh-agent-add-key.sh"
    permission=permission-git-write
 #   params=
 #   appDirList=
