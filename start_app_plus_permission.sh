@@ -73,6 +73,13 @@ elif [[ $select = '1' ]]; then
 #   params=
    appDirList=(~/.mozilla ~/.cache/mozilla)
 
+elif [[ $select = '6' ]]; then
+   app=mintbackup
+   permission=permission-backup
+   permissionGid=7706
+#   params=
+#   appDirList=
+
 elif [[ $select = '7' ]]; then
    app=nemo
    permission=permission-ntfs
