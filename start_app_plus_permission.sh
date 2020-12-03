@@ -62,6 +62,7 @@ elif [[ $select = '3' ]]; then
    app=./sh-scripts/git-select.sh
    permission=permission-git-write
    permissionGid=7703
+   startScript=1
 #   params=
 #   appDirList= 
 
@@ -113,14 +114,23 @@ app:
     $app 
 permission: 
     $permission
-params:
-    $params 
-appDirList: "
+params: 
+    "
+
+for parameter in "${params[@]}"
+do 
+    echo "$parameter"
+done
+
+echo "appDirList: 
+    "
 
 for path in "${appDirList[@]}"
 do 
-    echo "  $path"
+    echo "$path"
 done
+
+echo "startScript: $startScript"
 
 needChange=0
 
@@ -274,5 +284,10 @@ fi
 #   cd $cdDir     
 #fi
 
-echo "Start sudo -g $permission $app ${params[@]}"
-sudo -g $permission $app ${params[@]}
+if [[ -n $startScript ]]; then
+    echo "Start $app ${params[@]}"
+    $app ${params[@]}
+else
+    echo "Start sudo -g $permission $app ${params[@]}"
+    sudo -g $permission $app ${params[@]}
+fi
