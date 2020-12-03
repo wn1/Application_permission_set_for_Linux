@@ -34,6 +34,7 @@ do
     shift
 done
 
+echo "app: $app"
 shdir=$(dirname "$app")
 echo "shdir: $shdir"
 

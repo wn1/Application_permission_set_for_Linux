@@ -7,9 +7,10 @@ do
     let i=$i+1
 done
 
-read "Select file: " fileNum
-let sel=$fileNum+0
-file=${selectedList[$fileNum]}
-echo "selected $sel: $file"
+read -p 'Select file number: ' fileNum
+fileName=${selectedList[$fileNum]}
+printf "selected $fileNum: $fileName"
+
+
 #ssh-add "~/.ssh/$selectedList[$select]"
 

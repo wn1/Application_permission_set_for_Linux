@@ -49,6 +49,16 @@ elif [[ ${select:0:1} = 't' ]]; then
    useApp=gnome-terminal
    select=${select:1}
    echo "Select: terminal"
+
+elif [[ ${select:0:1} = 'n' ]]; then
+   useApp=nemo
+   select=${select:1}
+   echo "Select: nemo"
+
+elif [[ ${select:0:1} = 'd' ]]; then
+   useApp=dolphin
+   select=${select:1}
+   echo "Select: dolphin"
 fi
 
 if [[ $select = '2' ]]; then
