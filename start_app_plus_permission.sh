@@ -29,6 +29,7 @@ read -p '0. Start input app params
 9. Dolphin +root
 10. +permission-develop: Nemo
 11. +permission-android-develop: Android Studio
+12. Yandex-browser
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For deleting permissions on your directory use prefix - (-1, -2 etc)
@@ -36,6 +37,7 @@ For find permissions on your directory use prefix ? (?1, ?2 etc)
 For run nemo with selected permissions use prefix n ? (n1, n2 etc)
 For run dolphin with selected permissions use prefix d ? (d1, d2 etc)
 For run terminal with selected permissions use prefix t ? (t1, t2 etc)
+For reset app from selected permissions use prefix rs-p ? (rs-p1, rs-p2 etc)
 Select: ' select
 
 if [[ $select = 't' ]]; then
@@ -58,6 +60,11 @@ elif [[ ${select:0:1} = 'n' ]]; then
 elif [[ ${select:0:1} = 'd' ]]; then
    useApp=dolphin
    select=${select:1}
+   echo "Select: dolphin"
+
+elif [[ ${select:0:4} = 'rs-p' ]]; then
+   useSpecificator=reset-permissions-app
+   select=${select:4}
    echo "Select: dolphin"
 fi
 
@@ -111,6 +118,14 @@ elif [[ $select = '11' ]]; then
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
 #   appDirList=
+
+elif [[ $select = '12' ]]; then
+   app=yandex-browser
+   permission=permission-yandex-browser
+   permissionGid=7712
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta)
 
 fi
 
@@ -289,7 +304,7 @@ if ! [[ -e $linksDirectory ]]; then
 fi
 
 #Check application directory for permissions
-./sh-scripts/check1-application.sh -app $app -permission $permission -params ${params[@]} -appdirlist ${appDirList[@]}
+./sh-scripts/check1-application.sh -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 scriptExitCode=$? 
 if [[ $scriptExitCode != 0 ]] 
 then

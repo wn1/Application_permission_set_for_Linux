@@ -17,6 +17,8 @@ do
             shift ;;
         -permission) permission=$2
             shift ;;
+        -useSpecificator) useSpecificator=$2
+            shift ;;
         -params) 
             shift
             let i=0
@@ -39,7 +41,13 @@ do
     shift
 done
 
-echo "app: $app permission: $permission params: ${params[@]} appDirList: ${appDirList[@]}"
+echo "app: $app permission: $permission useSpecificator: $useSpecificator params: ${params[@]} appDirList: ${appDirList[@]}"
+
+if [[ $useSpecificator = reset-permissions-app ]]; then
+    userForApp=$USER
+else
+    userForApp='root'
+fi
 
 for path in ${appDirList[@]}
 do
@@ -51,7 +59,7 @@ do
     owner: $uname:$gname
     mod: $mod"  
 
-    if [[ $uname != 'root' || $gname != $permission || $mod != $appMod ]]; then
+    if [[ $uname != $userForApp || $gname != $permission || $mod != $appMod ]]; then
         needChange=1
         break
     fi
@@ -67,7 +75,7 @@ fi
 if [[ $needChange -eq 1 ]]; then
     read -p "In this application will be used changes for app dirrectory:
 owner change for 
-    root:$permission
+    $userForApp:$permission
 mod change to 
     $appMod
 Tape yes for confirm this changes: " confirm
@@ -85,9 +93,9 @@ do
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');
     echo Check $path owner
-    if [[ $uname != root || $gname != $permission ]]; then
-        echo Change $path owner from $uname:$gname to root:$permission
-        sudo chown root:$permission $path
+    if [[ $uname != $userForApp || $gname != $permission ]]; then
+        echo Change $path owner from $uname:$gname to $userForApp:$permission
+        sudo chown $userForApp:$permission $path
         #Check result is ok?
         if [[ $? != 0 ]]; then 
             exit $?
@@ -109,7 +117,7 @@ echo "Ok"
 #Check 2
 
 if [[ $needChange -eq 1 ]]; then
-    ./sh-scripts/check2-application.sh -app $app -permission $permission -params ${params[@]} -appdirlist ${appDirList[@]}
+    ./sh-scripts/check2-application.sh -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
     scriptExitCode=$?
     if [[ $scriptExitCode != 0 ]] 
     then
