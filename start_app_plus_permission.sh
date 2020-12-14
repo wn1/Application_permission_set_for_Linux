@@ -50,6 +50,7 @@ if [[ $select = 't' ]]; then
 elif [[ ${select:0:1} = 't' ]]; then
    useApp=gnome-terminal
    select=${select:1}
+#   useStartScript
    echo "Select: terminal"
 
 elif [[ ${select:0:1} = 'n' ]]; then
@@ -125,12 +126,21 @@ elif [[ $select = '12' ]]; then
    permissionGid=7712
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
-   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta)
+   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex)
+
+elif [[ $select = '13' ]]; then
+   app=doublecmd
+   permission=permission-doublecmd
+   permissionGid=7713
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.config/doublecmd)
 
 fi
 
 if [[ -n $useApp ]]; then
     app=$useApp
+    startScript=$useStartScript
 fi
 
 #TODO select qreatest 3
