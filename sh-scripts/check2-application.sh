@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Check app dir for permissions after changes"
 
 appMod="drwxrwx---"
@@ -51,6 +53,11 @@ fi
 
 for path in ${appDirList[@]}
 do
+
+    if ! [[ -e $path ]]; then 
+        continue;
+    fi
+
     uname=$(ls -l -d $path | awk '{print $3}');
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');

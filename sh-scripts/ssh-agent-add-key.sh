@@ -1,3 +1,5 @@
+#!/bin/bash
+
 eval "$(ssh-agent -s)"
 selectedList=$(ls -l ~/.ssh-git | awk '{print $9}')
 echo selectedList: $selectedList

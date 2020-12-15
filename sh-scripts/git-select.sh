@@ -1,3 +1,5 @@
+#!/bin/bash
+
 shdir=$(dirname "$0")
 
 while [ -n "$1" ]

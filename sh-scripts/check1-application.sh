@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Check app dir for permissions"
 
 appMod="drwxrwx---"
@@ -51,6 +53,11 @@ fi
 
 for path in ${appDirList[@]}
 do
+    if ! [[ -e $path ]]; then 
+        echo "Directory $path not exists ------------"
+        continue;
+    fi
+
     uname=$(ls -l -d $path | awk '{print $3}');
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');
@@ -89,10 +96,16 @@ fi
 
 for path in ${appDirList[@]}
 do
+
+    if ! [[ -e $path ]]; then 
+        continue;
+    fi
+
     uname=$(ls -l -d $path | awk '{print $3}');
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');
     echo Check $path owner
+
     if [[ $uname != $userForApp || $gname != $permission ]]; then
         echo Change $path owner from $uname:$gname to $userForApp:$permission
         sudo chown $userForApp:$permission $path

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Licence GPL v2
 #Linux Tools for application
 
@@ -30,6 +32,9 @@ read -p '0. Start input app params
 10. +permission-develop: Nemo
 11. +permission-android-develop: Android Studio
 12. Yandex-browser
+13. Double Commander
+14. VirtualBox
+15. In selected directory: Remove executable flag from all files (change mod to 664) and change mod to 775 for all directory 
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For deleting permissions on your directory use prefix - (-1, -2 etc)
@@ -126,7 +131,7 @@ elif [[ $select = '12' ]]; then
    permissionGid=7712
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
-   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex)
+   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex ~/.yandex_update)
 
 elif [[ $select = '13' ]]; then
    app=doublecmd
@@ -136,6 +141,18 @@ elif [[ $select = '13' ]]; then
 #   cdDir=$desktopDirectory
    appDirList=(~/.config/doublecmd)
 
+elif [[ $select = '14' ]]; then
+   app=virtualbox
+   permission=permission-virtualbox
+   permissionGid=7714
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.config/VirtualBox)
+
+
+elif [[ $select = '15' ]]; then
+   app=./sh-scripts/reset-mod.sh
+   startScript=1
 fi
 
 if [[ -n $useApp ]]; then
@@ -176,7 +193,7 @@ echo "startScript: $startScript"
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
@@ -263,48 +280,25 @@ fi
 changeConfirm=0
 
 #Check group exists 
-#TODO read from backup
-#TODO 
-groupIsExists=$(grep -F -w $permission /etc/group)
 
-if [[ -z $groupIsExists ]] 
-then
-   echo Adding permission group: $permission   
-   sudo addgroup --gid $permissionGid $permission     
+if ! [[ -e $permission ]]; then
+
+    groupIsExists=$(grep -F -w $permission /etc/group)
+
+    if [[ -z $groupIsExists ]] 
+    then
+       echo Adding permission group: $permission   
+       sudo addgroup --gid $permissionGid $permission     
+    fi
+
+    #Check result is ok?
+    if [[ $? != 0 ]]; then 
+        exit $?
+    fi
+
 fi
-
-
-#Backup permission group
-fileGroupBackup=./permission_groups_backup/$groupIsExists
-groupIsExists=$(grep -F -w $permission /etc/group)
-
-echo 'Backup permission group check'
-
-fileGroupBackupDir=./permission_groups_backup/
-
-if ! [[ -e $fileGroupBackupDir ]]; then 
-    echo "Make directory permission_groups_backup"
-    mkdir $fileGroupBackupDir
-# TODO backup from backup user
-#    sudo chown root:$internalChangePermission $fileGroupBackupDir
-    sudo chmod 770 $fileGroupBackupDir
-fi
-
-if [[ -n $groupIsExists && ! -e fileGroupBackup ]]; then
-   echo Backup permission group: $permission 
-#TODO replace
-   echo $groupIsExists > ./permission_groups_backup/$permission    
-fi
-
-#Check result is ok?
-if [[ $? != 0 ]]; then 
-    exit $?
-fi
-
 
 #Link directory adding
-
-
 if ! [[ -e $linksDirectory ]]; then 
     echo "Make directory $linksDirectory"
     mkdir $linksDirectory
@@ -313,18 +307,17 @@ if ! [[ -e $linksDirectory ]]; then
     sudo chmod 770 $linksDirectory
 fi
 
-#Check application directory for permissions
-./sh-scripts/check1-application.sh -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
-scriptExitCode=$? 
-if [[ $scriptExitCode != 0 ]] 
-then
-   exit $scriptExitCode     
-fi
+if ! [[ -e $permission ]]; then
 
-#if [[ -n $cdDir ]] 
-#then
-#   cd $cdDir     
-#fi
+    #Check application directory for permissions
+    ./sh-scripts/check1-application.sh -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
+    scriptExitCode=$? 
+    if [[ $scriptExitCode != 0 ]] 
+    then
+       exit $scriptExitCode     
+    fi
+
+fi
 
 if [[ -n $startScript ]]; then
     echo "Start $app ${params[@]}"
