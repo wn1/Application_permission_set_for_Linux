@@ -1,0 +1,1 @@
+/media/vladimir_sys/develop_android/sys/org.work/android-develop/Android Studio/android-studio/bin/studio.sh
