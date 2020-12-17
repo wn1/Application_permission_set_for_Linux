@@ -21,23 +21,23 @@ linksDirectory=./links
 
 read -p '0. Start input app params
 1. Firefox
-2. +permission-file-archive: Nemo
+2. permission-file-archive: Nemo
 3. Ssh: Git
 4. Yandex-disk
 5. Google-Drive
 6. User-Backup
-7. +Ntfs-disks: Nemo
+7. Ntfs-disks: Nemo
 8. Qt
 9. Dolphin +root
-10. +permission-develop: Nemo
-11. +permission-android-develop: Android Studio
+10. permission-develop: Nemo
+11. permission-android-develop: Android Studio
 12. Yandex-browser
 13. Double Commander
 14. VirtualBox
 15. In selected directory: Remove executable flag from all files (change mod to 664) and change mod to 775 for all directory 
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
-For deleting permissions on your directory use prefix - (-1, -2 etc)
+For remove permissions on your directory use prefix - (-1, -2 etc)
 For find permissions on your directory use prefix ? (?1, ?2 etc)
 For run nemo with selected permissions use prefix n ? (n1, n2 etc)
 For run dolphin with selected permissions use prefix d ? (d1, d2 etc)
@@ -67,6 +67,18 @@ elif [[ ${select:0:1} = 'd' ]]; then
    useApp=dolphin
    select=${select:1}
    echo "Select: dolphin"
+
+elif [[ ${select:0:1} = '+' ]]; then
+   useApp=./sh-scripts/plus_permission_for_dir.sh
+   select=${select:1}
+   useStartScript=1
+   echo "Select: adding permissions to your directory"
+
+elif [[ ${select:0:1} = '-' ]]; then
+   useApp=./sh-scripts/minus_permission_for_dir.sh
+   select=${select:1}
+   useStartScript=1
+   echo "Select: remove permissions on your directory"
 
 elif [[ ${select:0:4} = 'rs-p' ]]; then
    useSpecificator=reset-permissions-app
@@ -193,7 +205,7 @@ echo "startScript: $startScript"
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
@@ -320,8 +332,8 @@ if ! [[ -e $permission ]]; then
 fi
 
 if [[ -n $startScript ]]; then
-    echo "Start $app ${params[@]}"
-    $app ${params[@]}
+    echo "Start $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}"
+    $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 else
     echo "Start sudo -g $permission $app ${params[@]}"
     sudo -g $permission $app ${params[@]}
