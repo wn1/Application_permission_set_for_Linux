@@ -1,3 +1,7 @@
+#!/bin/bash
+
+shdir=$(dirname "$0")
+
 while [ -n "$1" ]
 do
     p2check=${2:0:1}
@@ -34,8 +38,6 @@ do
     shift
 done
 
-echo "app: $app"
-shdir=$(dirname "$app")
 echo "shdir: $shdir"
 
 read -p '0. Start gitk

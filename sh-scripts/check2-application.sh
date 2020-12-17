@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Check app dir for permissions after changes"
 
 appMod="drwxrwx---"
@@ -16,6 +18,8 @@ do
         -app) app=$2
             shift ;;
         -permission) permission=$2
+            shift ;;
+        -useSpecificator) useSpecificator=$2
             shift ;;
         -params) 
             shift
@@ -39,10 +43,21 @@ do
     shift
 done
 
-echo "app: $app permission: $permission params: ${params[@]} appDirList: ${appDirList[@]}"
+echo "app: $app permission: $permission useSpecificator: $useSpecificator params: ${params[@]} appDirList: ${appDirList[@]}"
+
+if [[ $useSpecificator = reset-permissions-app ]]; then
+    userForApp=$USER
+else
+    userForApp='root'
+fi
 
 for path in ${appDirList[@]}
 do
+
+    if ! [[ -e $path ]]; then 
+        continue;
+    fi
+
     uname=$(ls -l -d $path | awk '{print $3}');
     gname=$(ls -l -d $path | awk '{print $4}');
     mod=$(ls -l -d $path | awk '{print $1}');
@@ -51,7 +66,7 @@ do
     owner: $uname:$gname
     mod: $mod"  
 
-    if [[ $uname != 'root' || $gname != $permission || $mod != $appMod ]]; then
+    if [[ $uname != $userForApp || $gname != $permission || $mod != $appMod ]]; then
         echo "Check no ok"
         exit 111
         break
