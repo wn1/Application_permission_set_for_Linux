@@ -34,7 +34,7 @@ read -p '0. Start input app params
 12. Yandex-browser
 13. Double Commander
 14. VirtualBox
-15. In selected directory: Remove executable flag from all files (change mod to 664) and change mod to 775 for all directory 
+15. Change mod in directory. Remove executable flag from all files, change files mod to 664, change mod to 775 for all directory or etc
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For remove permissions on your directory use prefix - (-1, -2 etc)
@@ -293,7 +293,7 @@ changeConfirm=0
 
 #Check group exists 
 
-if ! [[ -e $permission ]]; then
+if ! [[ -z $permission ]]; then
 
     groupIsExists=$(grep -F -w $permission /etc/group)
 
@@ -319,7 +319,7 @@ if ! [[ -e $linksDirectory ]]; then
     sudo chmod 770 $linksDirectory
 fi
 
-if ! [[ -e $permission ]]; then
+if ! [[ -z $permission ]]; then
 
     #Check application directory for permissions
     ./sh-scripts/check1-application.sh -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
