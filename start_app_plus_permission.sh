@@ -35,6 +35,7 @@ read -p '0. Start input app params
 13. Double Commander
 14. VirtualBox
 15. Change mod in directory. Remove executable flag from all files, change files mod to 664, change mod to 775 for all directory or etc
+16. Chromium.
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For remove permissions on your directory use prefix - (-1, -2 etc)
@@ -161,10 +162,17 @@ elif [[ $select = '14' ]]; then
 #   cdDir=$desktopDirectory
    appDirList=(~/.config/VirtualBox)
 
-
 elif [[ $select = '15' ]]; then
    app=./sh-scripts/reset-mod.sh
    startScript=1
+   
+elif [[ $select = '16' ]]; then
+   app=chromium
+   permission=permission-chromium
+   permissionGid=7716
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.cache/chromium ~/.config/chromium)
 fi
 
 if [[ -n $useApp ]]; then
