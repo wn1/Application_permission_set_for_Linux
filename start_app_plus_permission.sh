@@ -106,7 +106,7 @@ elif [[ $select = '1' ]]; then
    app=firefox
    permission=permission-firefox
    permissionGid=7701
-#   params=
+   paramsSudo='-E env'
    appDirList=(~/.mozilla ~/.cache/mozilla)
 
 elif [[ $select = '6' ]]; then
@@ -142,7 +142,7 @@ elif [[ $select = '12' ]]; then
    app=yandex-browser
    permission=permission-yandex-browser
    permissionGid=7712
-#   params=$desktopDirectory
+   paramsSudo='-E env'
 #   cdDir=$desktopDirectory
    appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex ~/.yandex_update)
 
@@ -343,6 +343,6 @@ if [[ -n $startScript ]]; then
     echo "Start $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}"
     $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 else
-    echo "Start sudo -g $permission $app ${params[@]}"
-    sudo -g $permission $app ${params[@]}
+    echo "Start sudo -g $permission ${paramsSudo[@]} $app ${params[@]}"
+    sudo -g $permission ${paramsSudo[@]} $app ${params[@]}
 fi
