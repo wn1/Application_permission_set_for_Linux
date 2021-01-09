@@ -106,7 +106,7 @@ elif [[ $select = '1' ]]; then
    app=firefox
    permission=permission-firefox
    permissionGid=7701
-   paramsSudo='-E env'
+   paramsSudo='-E'
    appDirList=(~/.mozilla ~/.cache/mozilla)
 
 elif [[ $select = '6' ]]; then
@@ -142,7 +142,7 @@ elif [[ $select = '12' ]]; then
    app=yandex-browser
    permission=permission-yandex-browser
    permissionGid=7712
-   paramsSudo='-E env'
+   paramsSudo='-E'
 #   cdDir=$desktopDirectory
    appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex ~/.yandex_update)
 
@@ -213,7 +213,7 @@ echo "startScript: $startScript"
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh ./start_app_plus_permission_cmd.sh ./README.md)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
