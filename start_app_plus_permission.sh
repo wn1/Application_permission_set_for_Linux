@@ -35,6 +35,7 @@ read -p '0. Start input app params
 13. Double Commander
 14. VirtualBox
 15. Change mod in directory. Remove executable flag from all files, change files mod to 664, change mod to 775 for all directory or etc
+16. Chromium.
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For remove permissions on your directory use prefix - (-1, -2 etc)
@@ -105,7 +106,7 @@ elif [[ $select = '1' ]]; then
    app=firefox
    permission=permission-firefox
    permissionGid=7701
-#   params=
+   paramsSudo='-E'
    appDirList=(~/.mozilla ~/.cache/mozilla)
 
 elif [[ $select = '6' ]]; then
@@ -141,7 +142,7 @@ elif [[ $select = '12' ]]; then
    app=yandex-browser
    permission=permission-yandex-browser
    permissionGid=7712
-#   params=$desktopDirectory
+   paramsSudo='-E'
 #   cdDir=$desktopDirectory
    appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex ~/.yandex_update)
 
@@ -161,10 +162,17 @@ elif [[ $select = '14' ]]; then
 #   cdDir=$desktopDirectory
    appDirList=(~/.config/VirtualBox)
 
-
 elif [[ $select = '15' ]]; then
    app=./sh-scripts/reset-mod.sh
    startScript=1
+   
+elif [[ $select = '16' ]]; then
+   app=chromium
+   permission=permission-chromium
+   permissionGid=7716
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.cache/chromium ~/.config/chromium)
 fi
 
 if [[ -n $useApp ]]; then
@@ -205,7 +213,7 @@ echo "startScript: $startScript"
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh)
+internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh ./start_app_plus_permission_cmd.sh ./README.md)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
@@ -335,6 +343,6 @@ if [[ -n $startScript ]]; then
     echo "Start $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}"
     $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 else
-    echo "Start sudo -g $permission $app ${params[@]}"
-    sudo -g $permission $app ${params[@]}
+    echo "Start sudo -g $permission ${paramsSudo[@]} $app ${params[@]}"
+    sudo -g $permission ${paramsSudo[@]} $app ${params[@]}
 fi

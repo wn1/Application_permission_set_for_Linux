@@ -92,7 +92,7 @@ if [[ -z $app ]]; then
    exit 0
 fi
 
-echo "Start sudo -g $permission $app $params"
-sudo -g $permission $app $params
+echo "Start sudo -g $permission -E $app $params"
+sudo -g $permission -E $app $params
 
 
