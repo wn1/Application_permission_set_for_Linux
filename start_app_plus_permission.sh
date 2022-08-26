@@ -36,6 +36,7 @@ read -p '0. Start input app params
 14. VirtualBox
 15. Change mod in directory. Remove executable flag from all files, change files mod to 664, change mod to 775 for all directory or etc
 16. Chromium.
+17. permission-develop: Nautilus
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For remove permissions on your directory use prefix - (-1, -2 etc)
@@ -107,7 +108,7 @@ elif [[ $select = '1' ]]; then
    permission=permission-firefox
    permissionGid=7701
    paramsSudo='-E'
-   appDirList=(~/.mozilla ~/.cache/mozilla)
+   appDirList=(~/.mozilla ~/.cache/mozilla ~/snap/firefox)
 
 elif [[ $select = '6' ]]; then
    app=mintbackup
@@ -173,6 +174,13 @@ elif [[ $select = '16' ]]; then
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
    appDirList=(~/.cache/chromium ~/.config/chromium)
+   
+elif [[ $select = '17' ]]; then
+   app=nautilus
+   permission=permission-develop
+   permissionGid=7700
+#   params=
+#   appDirList=
 fi
 
 if [[ -n $useApp ]]; then
