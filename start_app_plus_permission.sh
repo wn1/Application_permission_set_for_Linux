@@ -146,7 +146,7 @@ elif [[ $select = '12' ]]; then
    permissionGid=7712
    paramsSudo='-E'
 #   cdDir=$desktopDirectory
-   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.yandex ~/.yandex_update)
+   appDirList=(~/.cache/yandex-browser-beta ~/.config/yandex-browser-beta ~/.cache/yandex-browser ~/.config/yandex-browser ~/.yandex ~/.yandex_update)
 
 elif [[ $select = '13' ]]; then
    app=doublecmd
