@@ -37,6 +37,7 @@ read -p '0. Start input app params
 15. Change mod in directory. Remove executable flag from all files, change files mod to 664, change mod to 775 for all directory or etc
 16. Chromium.
 17. permission-develop: Nautilus
+18. Chrome
 t. for test
 For adding permissions to your directory use prefix + (+1, +2 etc)
 For remove permissions on your directory use prefix - (-1, -2 etc)
@@ -181,6 +182,15 @@ elif [[ $select = '17' ]]; then
    permissionGid=7700
 #   params=
 #   appDirList=
+
+elif [[ $select = '18' ]]; then
+   app=google-chrome
+   permission=permission-chrome
+   permissionGid=7718
+#   params=$desktopDirectory
+#   cdDir=$desktopDirectory
+   appDirList=(~/.cache/google-chrome ~/.config/google-chrome)
+   
 fi
 
 if [[ -n $useApp ]]; then
