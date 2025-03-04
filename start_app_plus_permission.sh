@@ -86,7 +86,7 @@ elif [[ ${select:0:1} = '-' ]]; then
 elif [[ ${select:0:4} = 'rs-p' ]]; then
    useSpecificator=reset-permissions-app
    select=${select:4}
-   echo "Select: dolphin"
+   echo "Select: reset-permissions-app"
 fi
 
 if [[ $select = '2' ]]; then
@@ -187,6 +187,7 @@ elif [[ $select = '18' ]]; then
    app=google-chrome
    permission=permission-chrome
    permissionGid=7718
+   paramsSudo='-E'
 #   params=$desktopDirectory
 #   cdDir=$desktopDirectory
    appDirList=(~/.cache/google-chrome ~/.config/google-chrome)
@@ -357,10 +358,12 @@ if ! [[ -z $permission ]]; then
 
 fi
 
+userForApp=$USER
+
 if [[ -n $startScript ]]; then
     echo "Start $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}"
     $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 else
-    echo "Start sudo -g $permission ${paramsSudo[@]} $app ${params[@]}"
-    sudo -g $permission ${paramsSudo[@]} $app ${params[@]}
+    echo "Start sudo ${paramsSudo[@]} su -g $userForApp -G $permission -c \"$app ${params[@]}\""
+    sudo ${paramsSudo[@]} su -g $userForApp -G $permission -c "$app ${params[@]}" $userForApp #${paramsSudo[@]}
 fi
