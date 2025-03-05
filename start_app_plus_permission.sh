@@ -232,7 +232,7 @@ echo "startScript: $startScript"
 
 needChange=0
 
-internalCheckFileList=(./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh ./start_app_plus_permission_cmd.sh ./README.md)
+internalCheckFileList=(./ ./start_app_plus_permission.sh ./sh-scripts/ ./sh-scripts/git-select.sh ./sh-scripts/check1-application.sh ./sh-scripts/check2-application.sh ./sh-scripts/ssh-agent-add-key.sh ./sh-scripts/reset-mod.sh ./sh-scripts/plus_permission_for_dir.sh ./sh-scripts/minus_permission_for_dir.sh ./start_app_plus_permission_cmd.sh ./README.md)
 
 #Check internalChangePermission group exists 
 #TODO read from backup
