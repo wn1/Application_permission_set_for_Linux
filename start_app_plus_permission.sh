@@ -364,6 +364,6 @@ if [[ -n $startScript ]]; then
     echo "Start $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}"
     $app -app $app -permission $permission -useSpecificator $useSpecificator -params ${params[@]} -appdirlist ${appDirList[@]}
 else
-    echo "Start sudo ${paramsSudo[@]} su -g $userForApp -G $permission -c \"$app ${params[@]}\""
+    echo "Start sudo ${paramsSudo[@]} su -g $userForApp -G $permission -c \"$app ${params[@]}\" $userForApp"
     sudo ${paramsSudo[@]} su -g $userForApp -G $permission -c "$app ${params[@]}" $userForApp #${paramsSudo[@]}
 fi

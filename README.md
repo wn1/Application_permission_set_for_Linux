@@ -21,7 +21,7 @@ If the full path is /application/permission_set/, then the "application" and "pe
 Идея такая, что для каталогов кеша браузера устанавливаются владелец root и отдельная группа.
 Например, для браузера firefox создаётся отдельная группа пользователей permission-firefox.
 Потом устанавливается для каталогов ~/.mozilla ~/.cache/mozilla ~/snap/firefox владелец root и группа permission-firefox.
-После этого браузер запускается командой sudo -E su -g user_name -G permission-firefox -c "firefox "
+После этого браузер запускается командой sudo -E su -g user_name -G permission-firefox -c "firefox " user_name
 То есть для исполнения браузера дополнительно добавляется дополнительная группа permission-firefox и
 получается, что он сможет получать доступ к кешу. А остальные программы нет.
 sudo и пароль пользователя нужен, чтобы запустить браузер с такой конфигурацией,
